@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Food Health Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="home-container">
+    <h1>Smart Food Health Scanner</h1>
+    <p>Enter or scan a barcode to analyze food health</p>
+
+    <form method="POST" id="barcodeForm">
+        <input type="text" id="barcode" name="barcode" placeholder="Enter barcode number" required>
+        <br><br>
+        <button type="submit" class="btn">Analyze</button>
+    </form>
+
+    <br>
+
+    <button type="button" class="btn scan-btn" onclick="startScanner()">📷 Scan with Camera</button>
+
+    <div id="scanner" style="width:480px;height:360px;margin:auto;display:none;border:2px solid black;"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/quagga.min.js') }}"></script>
+
+<script>
+function startScanner() {
+    document.getElementById("scanner").style.display = "block";
+
+    Quagga.init({
+        inputStream: {
+            type: "LiveStream",
+            target: document.querySelector('#scanner'),
+            constraints: {
+                facingMode: "environment"
+            }
+        },
+        decoder: {
+            readers: ["ean_reader", "ean_8_reader", "upc_reader", "code_128_reader"]
+        }
+    }, function (err) {
+        if (err) {
+            alert("Camera error: " + err);
+            return;
+        }
+        Quagga.start();
+    });
+
+    Quagga.onDetected(function (data) {
+        let code = data.codeResult.code;
+        document.getElementById("barcode").value = code;
+
+        Quagga.stop();
+        document.getElementById("scanner").style.display = "none";
+
+        document.getElementById("barcodeForm").submit();
+    });
+}
+</script>
+
+</body>
+</html>

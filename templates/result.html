@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Health Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🥗 Food Health Report</h1>
+
+    <div class="section">
+        <h2>🍽 Product Name</h2>
+        <p><b>{{ product.product_name }}</b></p>
+    </div>
+
+    <div class="section">
+        <h2>🧾 Ingredients</h2>
+        <div class="ingredients-box">
+            <p>{{ product.ingredients_text }}</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>⚠ Alerts</h2>
+        <ul>
+            {% for alert in alerts %}
+                <li>{{ alert }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>📊 Nutrition (per 100g)</h2>
+        <p><b>Protein:</b> {{ product.protein }}</p>
+        <p><b>Sugar:</b> {{ product.sugar }}</p>
+        <p><b>Fat:</b> {{ product.fat }}</p>
+        <p><b>Calories:</b> {{ product.calories }}</p>
+        <p><b>Additives:</b> {{ product.additives_count }}</p>
+    </div>
+
+    <div class="section">
+        <h2>🏥 Health Score</h2>
+
+        {% if health_score >= 80 %}
+            <p class="score green">{{ health_score }} / 100</p>
+        {% elif health_score >= 50 %}
+            <p class="score yellow">{{ health_score }} / 100</p>
+        {% else %}
+            <p class="score red">{{ health_score }} / 100</p>
+        {% endif %}
+
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ health_score }}%;"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🏷 Rating</h2>
+
+        {% if health_score >= 80 %}
+            <p class="rating green">{{ rating }}</p>
+        {% elif health_score >= 50 %}
+            <p class="rating yellow">{{ rating }}</p>
+        {% else %}
+            <p class="rating red">{{ rating }}</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>💡 Recommendation</h2>
+        <p>{{ recommendation }}</p>
+    </div>
+
+    <center>
+        <a href="/" class="button">⬅ Scan Another Product</a>
+    </center>
+
+</div>
+
+</body>
+</html>
