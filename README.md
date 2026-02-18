@@ -19,11 +19,14 @@ Scan4Health is a smart food health analysis web application that scans packaged 
 - OpenFoodFacts API
 - QuaggaJS (barcode scanner)
 
-## How to Run
-1. Clone repository
+
+## 🌐 Live Demo
+https://scan4health-1.onrender.com/
+
+## 🚀 How to Run
+
+1. Clone the repository  
 2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-## 🌐 Live Demo
-https://scan4health-1.onrender.com/
