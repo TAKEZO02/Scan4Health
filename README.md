@@ -25,3 +25,5 @@ Scan4Health is a smart food health analysis web application that scans packaged 
 
 ```bash
 pip install -r requirements.txt
+## 🌐 Live Demo
+https://scan4health-1.onrender.com/
